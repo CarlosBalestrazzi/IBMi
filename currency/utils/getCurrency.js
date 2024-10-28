@@ -1,7 +1,7 @@
 // Import Needle library that we installed, to issue HTTP GET request.
 var needle = require('needle');
 // Assign API key that we received from https://openexchangerates.org/signup/free
-const API_KEY = 'YOUR-KEY-FROM-OPEN-EXCHANGE-RATES';
+const API_KEY = '38118e62d79e466899af2a7839e4a3dd';
 
 const getCurrency = (baseCurr, callback) => {
     const url = `https://openexchangerates.org/api/latest.json?app_id=${API_KEY}&base=${baseCurr}`

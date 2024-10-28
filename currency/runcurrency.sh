@@ -6,4 +6,4 @@
 # For more information visit - https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_74/rzalf/rzalfpase.htm
 
 # The below line runs our application by navigating to the app.js in the directory structure. 
-node /home/ANANDK/currency/app.js 'USD'
+node /home/ru54336/cotizaciones/app.js 'USD'

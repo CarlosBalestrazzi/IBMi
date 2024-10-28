@@ -1,33 +1,33 @@
-// import required class - DBPoll from idb-pconnector for connection to DB2
+// import required class - DBPool from idb-pconnector for connection to DB2
 const { DBPool } = require('idb-pconnector');
 
 // Keep the SQL statement ready
-const sql = `CREATE OR REPLACE TABLE APKHEKALE1.CURRENCY(
+const sql = `CREATE OR REPLACE TABLE RU543361.ARBITRAJES(
                 Date Timestamp(0),
                 BCURR CHAR(3),
                 USD Decimal(12, 4),
                 EUR Decimal(12, 4),
                 GBP Decimal(12, 4),
                 INR Decimal(12, 4),
-                SGD Decimal(12, 4)) RCDFMT RCURRENCY`;
+                UYU Decimal(12, 4)) RCDFMT RARBITRAJE`;
 
-const label = `LABEL ON COLUMN APKHEKALE1.CURRENCY (
-                Date TEXT IS 'Date fetched',
-                BCURR TEXT IS 'Base Currency',
-                USD  TEXT IS 'United States Dollar',
+const label = `LABEL ON COLUMN RU543361.ARBITRAJES (
+                Date TEXT IS 'Fecha arbitraje',
+                BCURR TEXT IS 'Moneda Base',
+                USD  TEXT IS 'Dolar USA',
                 EUR  TEXT IS 'Euro',
-                GBP  TEXT IS 'Pound sterling',
-                INR  TEXT IS 'Indian Rupee',
-                SGD  TEXT IS 'Singapore Dollars')`;
+                GBP  TEXT IS 'Libra Esterlina',
+                INR  TEXT IS 'Rupia',
+                UYU  TEXT IS 'Pesos Uruguayos')`;
 
-const colhdg = `LABEL ON COLUMN APKHEKALE1.CURRENCY (
-                Date  IS 'Date fetched',
-                BCURR IS 'Base Currency',
-                USD   IS 'United States Dollar',
+const colhdg = `LABEL ON COLUMN RU543361.ARBITRAJES (
+                Date  IS 'Fecha arbitraje',
+                BCURR IS 'Moneda Base',
+                USD   IS 'Dolar USA',
                 EUR  IS 'Euro',
-                GBP  IS 'Pound sterling',
-                INR  IS 'Indian Rupee',
-                SGD  IS 'Singapore Dollars')`;
+                GBP  IS 'Libra Esterlina',
+                INR  IS 'Rupia',
+                UYU  IS 'Pesos Uruguayos')`;
 // Write async - promised based function so that await can be used
 async function createDB() {
 

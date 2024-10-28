@@ -15,14 +15,14 @@ async function updateDb(currencyData) {
     const currEUR = currencyData.rates.EUR;
     const currGBP = currencyData.rates.GBP;
     const currINR = currencyData.rates.INR;
-    const currSGD = currencyData.rates.SGD;
+    const currUYU = currencyData.rates.UYU;
 
     // Create a database connection and update the database. 
     try {
         // Connect DB2 using a pool of connection. This is useful for scalability.
         const pool = new DBPool();
-        const sql = `Insert into APKHEKALE1.CURRENCY values (?,?,?,?,?,?,?) WITH NONE`;
-        const params = [timestamp, baseCurr, currUSD, currEUR, currGBP, currINR, currSGD];
+        const sql = `Insert into RU543361.ARBITRAJES values (?,?,?,?,?,?,?) WITH NONE`;
+        const params = [timestamp, baseCurr, currUSD, currEUR, currGBP, currINR, currUYU];
         await pool.prepareExecute(sql, params); // prepare and execute the statement 
     } catch (error) { // if something goes wrong, like SQL error, catch those here. 
         console.log(error);
