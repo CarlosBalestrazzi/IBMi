@@ -1,0 +1,106 @@
+/**************************************************************+
+ *  Program:      CBBMDD50                                     +
+ *  Description:  Invoca el programa PBBNDD50 desde CTRL-M     +
+ *                                                             +
+ *  Author:                                                    +
+ *  Date:                                                      +
+ *                                                             +
+ *  Change Log:                                                +
+ *                                                             +
+ **************************************************************/
+            PGM PARM(&FECHA)
+
+            DCL VAR(&FECHA) TYPE(*CHAR) LEN(8) 
+            DCL VAR(&YEAR) TYPE(*CHAR) LEN(4) STG(*DEFINED)  DEFVAR(&FECHA 1) 
+            DCL VAR(&MONTH) TYPE(*CHAR) LEN(2) STG(*DEFINED)  DEFVAR(&FECHA 5) 
+            DCL VAR(&DAY) TYPE(*CHAR) LEN(2) STG(*DEFINED)  DEFVAR(&FECHA 7) 
+            DCL VAR(&FECDESDE) TYPE(*CHAR) LEN(8)
+            DCL VAR(&FECHASTA) TYPE(*CHAR) LEN(8) 
+            DCL VAR(&STR) TYPE(*CHAR) LEN(70)
+            DCL VAR(&PGFAPE) TYPE(*CHAR) LEN(8)
+            DCL VAR(&PGFCIE) TYPE(*CHAR) LEN(8)
+            DCL VAR(&BEGIN) TYPE(*CHAR) LEN(2) VALUE('<<')
+            DCL VAR(&END) TYPE(*CHAR) LEN(2) VALUE('>>')
+            DCL VAR(&NEWMSG) TYPE(*CHAR) LEN(804) 
+            DCL VAR(&RTNCDE) TYPE(*CHAR) LEN(2)
+            DCL VAR(&EOF) TYPE(*LGL)
+            DCL VAR(&JUL) TYPE(*CHAR) LEN(5)
+            Dcl        &Msg           *Char           800 
+            Dcl        &MsgId         *Char             7
+            Dcl        &MsgDta        *Char           256
+            Dcl        &MsgF          *Char            10
+            Dcl        &MsgfLib       *Char            10
+            Dcl        &ErrorSw       *Lgl 
+            DCLF FILE(FST017)  OPNID(F) 
+
+            Copyright  '© your company.'
+
+            MonMsg     Cpf0000 Exec(Goto Error)
+
+            ChgVar     &Msg ('Starting job ...')
+            SndPgmMsg  MsgID(Cpf9898) MsgF(QCpfMsg) +
+                         MsgDta(&Msg) MsgType(*Status) ToPgmQ(*Ext)
+
+            RCVF OPNID(F)
+            MONMSG MSGID(CPF0864) EXEC(DO)
+                CHGVAR VAR(&EOF) VALUE('1')
+            ENDDO
+
+            DOWHILE COND(*NOT &EOF)
+                CHGVAR VAR(&PGFCIE) VALUE(&F_PGFCIE)
+                CHGVAR VAR(&PGFAPE) VALUE(&F_PGFAPE)
+                RCVF OPNID(F)
+                MONMSG MSGID(CPF0864) EXEC(DO)
+                  CHGVAR VAR(&EOF) VALUE('1')
+                ENDDO
+            ENDDO
+
+            SELECT
+            WHEN COND(%PARMS *EQ 0) THEN(DO)
+                CALLSUBR SUBR(SUBR_1)
+            ENDDO
+            WHEN COND(%PARMS *EQ 1) THEN(DO)
+                CALLSUBR SUBR(SUBR_2)
+            ENDDO
+            OTHERWISE CMD(DO)
+                CALLSUBR SUBR(SUBR_3)
+            ENDDO
+            ENDSELECT
+
+            CALL PGM(PBBNDD50) PARM((&FECDESDE) (&FECHASTA) (&STR))
+
+            CHGVAR VAR(&Msg) VALUE('El programa CBBNDD50 ha finalizado normalmente')
+            CHGVAR VAR(&RTNCDE) VALUE('00')
+            CHGVAR VAR(&NEWMSG) VALUE(&BEGIN *CAT %TRIM(&Msg) *CAT &END)
+            SNDPGMMSG MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&NEWMSG) TOPGMQ(*PRV)  MSGTYPE(*INFO) 
+
+            RETURN
+
+Error:      If         Cond(&ErrorSw) Then(SndPgmMsg  MsgID(Cpf9999) MsgF(QCpfMsg) + 
+                         MsgType(*Escape))
+            ChgVar     &ErrorSw    '1'
+
+Error2:     RcvMsg     MsgType(*Diag) MsgDta(&MsgDta) MsgID(&MsgID) MsgF(&MsgF) +
+                         SndMsgFLib(&MsgFLib)
+
+            If         (&MsgID =   ' ') Goto Error3
+            SndPgmMsg  MsgID(&MsgID) MsgF(&MsgFLib/&Msgf) MsgDta(&MsgDta) MsgType(*Diag)
+            Goto       Error2
+
+Error3:     RcvMsg     MsgType(*Excp) MsgDta(&MsgDta) MsgID(&MsgID) MsgF(&MsgF) +
+                         SndMsgFLib(&MsgFLib)
+            SndPgmMsg  MsgID(&MsgID) MsgF(&MsgFLib/&MsgF) MsgDta(&MsgDta) MsgType(*Escape)
+
+            SUBR SUBR(SUBR_1)
+            
+            ENDSUBR
+
+            SUBR SUBR(SUBR_2)
+            
+            ENDSUBR
+
+            SUBR SUBR(SUBR_3)
+            
+            ENDSUBR
+
+            EndPgm
