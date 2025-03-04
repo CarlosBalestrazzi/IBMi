@@ -1,3 +1,10 @@
 {
-  "description": "My Projects"
+  "description": "My Projects",
+  "curlib": "&CURLIB",
+  "postUsrlibl": [
+    "qsys2"
+  ],
+  "preUsrlibl": [
+    "ru543362"
+  ]
 }
