@@ -11,3 +11,12 @@
 [2025-03-09T14:37:13.858Z] info: 	Write data to c:\Users\CBale\OneDrive\Documentos\GitHub\IBMi_myLalptop\.obi\etc\dependency.json
 [2025-03-09T14:37:13.860Z] info: 	Write data to c:\Users\CBale\OneDrive\Documentos\GitHub\IBMi_myLalptop\.obi\etc\object-builds.json
 [2025-03-09T14:37:13.887Z] warn: 	File does not exist: c:\Users\CBale\OneDrive\Documentos\GitHub\IBMi_myLalptop\.obi\etc\.user-app-config.toml
+[2025-03-10T13:05:25.495Z] info: 	Congratulations, your extension "obi" is now active!
+[2025-03-10T13:05:25.497Z] info: 	Start app
+[2025-03-10T13:05:25.508Z] info: 	vscode.env.remoteName: undefined
+[2025-03-10T13:05:25.517Z] info: 	vscode.env.uriScheme: vscode
+[2025-03-10T13:05:25.519Z] info: 	vscode.env.appHost: desktop
+[2025-03-10T13:05:25.521Z] info: 	vscode.env.appHost: undefined
+[2025-03-10T13:05:25.522Z] debug: 	Read json c:\Users\CBale\.vscode\extensions\andreas-prouza.obi-0.3.10\package.nls.en.json
+[2025-03-10T13:05:25.525Z] debug: 	Read json c:\Users\CBale\.vscode\extensions\andreas-prouza.obi-0.3.10\package.nls.json
+[2025-03-10T13:05:25.549Z] warn: 	File does not exist: c:\Users\CBale\OneDrive\Documentos\GitHub\IBMi_myLalptop\.obi\etc\.user-app-config.toml
